@@ -1,32 +1,29 @@
-.PHONY: up
+.PHONY: up down build
 up:
 	docker-compose up -d
-
-.PHONY: down
 down:
 	docker-compose down
-
-.PHONY: build
 build:
 	docker-compose build
 
-.PHONY: go
+.PHONY: go go-logs
 go:
 	docker-compose exec go bash
-.PHONY: go-logs
 go-logs:
 	docker-compose logs go -f
 
-.PHONY: node
+.PHONY: node node-logs npm storybook
 node:
 	docker-compose exec node bash
-.PHONY: node-logs
+npm:
+	docker-compose exec node npm i
 node-logs:
-	docker-compose logs node -f
+	docker-compose logs node -f.PHONY: mysql
+storybook:
+	docker-compose exec node npm run storybook
 
-.PHONY: mysql
+.PHONY: mysql mysql-logs
 mysql:
 	docker-compose exec mysql bash
-.PHONY: mysql-logs
 mysql-logs:
 	docker-compose logs mysql -f

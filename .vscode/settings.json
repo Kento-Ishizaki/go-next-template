@@ -1,0 +1,31 @@
+{
+  "[php]": {
+    "editor.defaultFormatter": "open-southeners.laravel-pint",
+    "editor.tabSize": 4,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true
+    }
+  },
+  "[javascript][javascriptreact][typescript][typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true,
+      "source.fixAll.stylelint": true,
+      "source.addMissingImports": true,
+      "source.organizeImports": true
+    }
+  },
+  "editor.formatOnSave": true,
+  "editor.guides.bracketPairs": true,
+  // ファイル保存時に最終行以降の空行を削除
+  "files.trimFinalNewlines": true,
+  // ファイル保存時に各行の末尾にある半角スペースを削除
+  "files.trimTrailingWhitespace": true,
+  "laravel-pint.enable": true,
+  "laravel-pint.enableDebugLogs": true,
+  "php.validate.executablePath": "/usr/local/bin/php", // set your PHP path
+  "prettier.trailingComma": "all",
+  "typescript.inlayHints.parameterNames.enabled": "all",
+  "javascript.inlayHints.parameterNames.enabled": "all"
+}
