@@ -1,0 +1,48 @@
+services:
+  go:
+    build:
+      context: .
+      dockerfile: infra/go/Dockerfile
+    volumes:
+      - type: bind
+        source: ./go
+        target: /app
+    ports:
+      - "8080:8080"
+
+  node:
+    build:
+      context: .
+      dockerfile: ./infra/node/Dockerfile
+    ports:
+      - "3000:3000"
+      # StoryBook
+      - "6006:6006"
+    volumes:
+      - type: bind
+        source: ./node
+        target: /app
+      - type: volume
+        source: node-module-volume
+        target: /app/node_modules
+
+  mysql:
+    build:
+      context: .
+      dockerfile: ./infra/mysql/Dockerfile
+    platform: linux/x86_64
+    ports:
+      - "3306:3306"
+    environment:
+      - "MYSQL_DATABASE=go_next"
+      - "MYSQL_ROOT_PASSWORD=password"
+    volumes:
+      - type: volume
+        source: mysql-volume
+        target: /var/lib/mysql
+
+volumes:
+  node-module-volume:
+    driver: local
+  mysql-volume:
+    driver: local
