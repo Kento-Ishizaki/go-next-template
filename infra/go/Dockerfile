@@ -2,9 +2,6 @@ FROM golang:1.21-alpine
 
 WORKDIR /app
 
-# ホットリロード用ツールをインストール
-RUN go install github.com/cosmtrek/air@latest
-
 # 必要なパッケージをインストール
 RUN apk update && \
     apk add --no-cache \
@@ -17,5 +14,10 @@ RUN apk update && \
 
 COPY go/go.mod go/go.sum ./
 RUN go mod download
+
+# ホットリロード用ツール
+RUN go install github.com/cosmtrek/air@latest
+# マイグレーション用ツール
+RUN go install -tags 'mysql' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 
 CMD ["air", "-c", ".air.toml"]
