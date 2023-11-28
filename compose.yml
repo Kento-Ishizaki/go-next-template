@@ -8,6 +8,8 @@ services:
       - type: bind
         source: ./go
         target: /app
+    env_file:
+      - ./go/.env
     ports:
       - "8080:8080"
     depends_on:

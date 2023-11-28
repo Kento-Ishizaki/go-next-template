@@ -1,5 +1,4 @@
 FROM golang:1.21-alpine as dev
-
 WORKDIR /app
 
 # 必要なパッケージをインストール
@@ -15,15 +14,14 @@ RUN apk update && \
 COPY go/go.mod go/go.sum ./
 RUN go mod download
 
-# ホットリロード用ツール
-RUN go install github.com/cosmtrek/air@latest
-# マイグレーション用ツール
-RUN go install -tags 'mysql' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+RUN go install github.com/cosmtrek/air@latest && \
+    go install -tags 'mysql' github.com/golang-migrate/migrate/v4/cmd/migrate@latest && \
+    go install github.com/99designs/gqlgen@latest
 
 CMD ["air", "-c", ".air.toml"]
 
-FROM golang:1.21-alpine as builder
 
+FROM golang:1.21-alpine as builder
 WORKDIR /app
 
 RUN apk update && \
@@ -36,6 +34,7 @@ RUN go mod download
 
 COPY go ./
 RUN CGO_ENABLED=0 GOOS=linux go build -o /app/binary
+
 
 FROM scratch as prod
 WORKDIR /app
