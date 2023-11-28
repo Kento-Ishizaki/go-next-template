@@ -6,53 +6,57 @@ package graph
 
 import (
 	"context"
+	"fmt"
+	"strconv"
 
 	"github.com/Kento-Ishizaki/go-next-template/graph/model"
+	"github.com/Kento-Ishizaki/go-next-template/models"
 )
 
 // CreateTodo is the resolver for the createTodo field.
-func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
-	return &model.Todo{
-		ID:   "1",
-		Text: input.Text,
-		User: &model.User{
-			ID:   input.UserID,
-			Name: "user" + input.UserID,
-		},
-	}, nil
+func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (string, error) {
+	panic(fmt.Errorf("not implemented: CreateTodo - createTodo"))
+}
+
+// CreateUser is the resolver for the createUser field.
+func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) (string, error) {
+	user := &models.User{Name: input.Name}
+	res := r.DB.Create(user)
+	if err := res.Error; err != nil {
+		return "", err
+	}
+
+	return strconv.Itoa(user.ID), nil
 }
 
 // Todos is the resolver for the todos field.
-func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
-	return []*model.Todo{
-		{
-			ID:   "1",
-			Text: "todo1",
-			User: &model.User{
-				ID:   "1",
-				Name: "user1",
-			},
-			Done: false,
-		},
-		{
-			ID:   "2",
-			Text: "todo2",
-			User: &model.User{
-				ID:   "2",
-				Name: "user2",
-			},
-			Done: false,
-		},
-		{
-			ID:   "3",
-			Text: "todo3",
-			User: &model.User{
-				ID:   "3",
-				Name: "user3",
-			},
-			Done: true,
-		},
-	}, nil
+func (r *queryResolver) Todos(ctx context.Context) ([]*models.Todo, error) {
+	panic(fmt.Errorf("not implemented: Todos - todos"))
+}
+
+// Todo is the resolver for the todo field.
+func (r *queryResolver) Todo(ctx context.Context, id string) (*models.Todo, error) {
+	panic(fmt.Errorf("not implemented: Todo - todo"))
+}
+
+// Users is the resolver for the users field.
+func (r *queryResolver) Users(ctx context.Context) ([]*models.User, error) {
+	panic(fmt.Errorf("not implemented: Users - users"))
+}
+
+// User is the resolver for the user field.
+func (r *queryResolver) User(ctx context.Context, id string) (*models.User, error) {
+	panic(fmt.Errorf("not implemented: User - user"))
+}
+
+// User is the resolver for the user field.
+func (r *todoResolver) User(ctx context.Context, obj *models.Todo) (*models.User, error) {
+	panic(fmt.Errorf("not implemented: User - user"))
+}
+
+// Todos is the resolver for the todos field.
+func (r *userResolver) Todos(ctx context.Context, obj *models.User) ([]*models.Todo, error) {
+	panic(fmt.Errorf("not implemented: Todos - todos"))
 }
 
 // Mutation returns MutationResolver implementation.
@@ -61,5 +65,13 @@ func (r *Resolver) Mutation() MutationResolver { return &mutationResolver{r} }
 // Query returns QueryResolver implementation.
 func (r *Resolver) Query() QueryResolver { return &queryResolver{r} }
 
+// Todo returns TodoResolver implementation.
+func (r *Resolver) Todo() TodoResolver { return &todoResolver{r} }
+
+// User returns UserResolver implementation.
+func (r *Resolver) User() UserResolver { return &userResolver{r} }
+
 type mutationResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }
+type todoResolver struct{ *Resolver }
+type userResolver struct{ *Resolver }
