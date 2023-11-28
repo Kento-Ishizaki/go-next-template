@@ -1,13 +1,15 @@
 step := 0
 name :=
 
-.PHONY: up down build
+.PHONY: up down build logs
 up:
 	docker compose up -d
 down:
 	docker compose down
 build:
 	docker compose build
+logs:
+	docker compose logs -f
 
 .PHONY: go go-logs migrate
 go:

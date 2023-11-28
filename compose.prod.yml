@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: infra/go/Dockerfile
-      target: dev
+      target: prod
     volumes:
       - type: bind
         source: ./go
@@ -12,6 +12,7 @@ services:
       - "8080:8080"
     depends_on:
       - mysql
+    tty: true
 
   node:
     build:
