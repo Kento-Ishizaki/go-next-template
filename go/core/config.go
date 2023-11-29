@@ -2,8 +2,9 @@ package core
 
 import (
 	"os"
-	"strconv"
 )
+
+const useMock = true
 
 type Config struct {
 	Port    string
@@ -21,10 +22,6 @@ type DBConfig struct {
 }
 
 func NewConfig() *Config {
-	useMock := false
-	if val, err := strconv.ParseBool(os.Getenv("USE_MOCK")); err == nil {
-		useMock = val
-	}
 	return &Config{
 		Port: os.Getenv("PORT"),
 		DB: DBConfig{

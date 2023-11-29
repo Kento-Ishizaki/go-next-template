@@ -13,14 +13,14 @@ import (
 	"github.com/Kento-Ishizaki/go-next-template/graph/model"
 )
 
-// CreateTodo is the resolver for the createTodo field.
-func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (string, error) {
-	panic(fmt.Errorf("not implemented: CreateTodo - createTodo"))
+// CreateUser is the resolver for the createUser field.
+func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) (*entity.User, error) {
+	return r.Repo.UserRepo().CreateUser(input.Name)
 }
 
-// CreateUser is the resolver for the createUser field.
-func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) (string, error) {
-	panic(fmt.Errorf("not impxemented: CreateUser - createUser"))
+// CreateTodo is the resolver for the createTodo field.
+func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*entity.Todo, error) {
+	return r.Repo.TodoRepo().CreateTodo(input.Text, input.UserID)
 }
 
 // Todos is the resolver for the todos field.

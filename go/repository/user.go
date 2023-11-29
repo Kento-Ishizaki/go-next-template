@@ -8,6 +8,7 @@ import (
 
 type UserRepository interface {
 	GetUser(id int) (*entity.User, error)
+	CreateUser(name string) (*entity.User, error)
 }
 
 func (m *MysqlRepositoryFactory) UserRepo() UserRepository {

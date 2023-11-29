@@ -17,3 +17,12 @@ func (r *MysqlTodoRepo) GetTodo(id int) (*entity.Todo, error) {
 
 	return t, nil
 }
+
+func (r *MysqlTodoRepo) CreateTodo(text string, userId int) (*entity.Todo, error) {
+	t := &entity.Todo{Text: text, UserID: userId}
+	if err := r.DB.Create(t).Error; err != nil {
+		return nil, err
+	}
+
+	return t, nil
+}

@@ -17,3 +17,12 @@ func (r *MysqlUserRepo) GetUser(id int) (*entity.User, error) {
 
 	return u, nil
 }
+
+func (r *MysqlUserRepo) CreateUser(name string) (*entity.User, error) {
+	u := &entity.User{Name: name}
+	if err := r.DB.Create(u).Error; err != nil {
+		return nil, err
+	}
+
+	return u, nil
+}

@@ -14,3 +14,10 @@ func (*MockTodoRepo) GetTodo(id int) (*entity.Todo, error) {
 		Text: strconv.Itoa(id),
 	}, nil
 }
+
+func (*MockTodoRepo) CreateTodo(text string, userId int) (*entity.Todo, error) {
+	return &entity.Todo{
+		ID:   userId,
+		Text: text,
+	}, nil
+}

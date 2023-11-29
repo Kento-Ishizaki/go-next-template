@@ -8,6 +8,7 @@ import (
 
 type TodoRepository interface {
 	GetTodo(id int) (*entity.Todo, error)
+	CreateTodo(text string, userId int) (*entity.Todo, error)
 }
 
 func (m *MockRepositoryFactory) TodoRepo() TodoRepository {
