@@ -3,17 +3,18 @@ services:
     build:
       context: .
       dockerfile: infra/go/Dockerfile
-      target: dev
+      target: prod
     volumes:
       - type: bind
         source: ./go
         target: /app
-    env_file:
-      - ./go/.env
     ports:
       - "8080:8080"
+    env_file:
+      - ./go/.env
     depends_on:
       - mysql
+    tty: true
 
   node:
     build:

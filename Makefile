@@ -1,13 +1,15 @@
 step := 0
 name :=
 
-.PHONY: up down build
+.PHONY: up down build logs
 up:
 	docker compose up -d
 down:
 	docker compose down
 build:
 	docker compose build
+logs:
+	docker compose logs -f
 
 .PHONY: go go-logs migrate
 go:
@@ -22,6 +24,8 @@ migrate-down:
 	docker compose exec go migrate -path db/migrations -database "mysql://db_user:password@tcp(mysql:3306)/go_next?multiStatements=true" down ${step}
 migrate-force:
 	docker compose exec go migrate -path db/migrations -database "mysql://db_user:password@tcp(mysql:3306)/go_next" force ${step}
+gen-init:
+	docker compose exec go gqlgen init
 
 .PHONY: node node-logs npm storybook
 node:
