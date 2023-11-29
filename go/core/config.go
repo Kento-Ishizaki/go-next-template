@@ -1,10 +1,15 @@
 package core
 
-import "os"
+import (
+	"os"
+	"strconv"
+)
 
 type Config struct {
-	Port string
-	DB   DBConfig
+	Port    string
+	DB      DBConfig
+	Env     string
+	UseMock bool
 }
 
 type DBConfig struct {
@@ -16,6 +21,10 @@ type DBConfig struct {
 }
 
 func NewConfig() *Config {
+	useMock := false
+	if val, err := strconv.ParseBool(os.Getenv("USE_MOCK")); err == nil {
+		useMock = val
+	}
 	return &Config{
 		Port: os.Getenv("PORT"),
 		DB: DBConfig{
@@ -25,5 +34,7 @@ func NewConfig() *Config {
 			Name:     os.Getenv("DB_NAME"),
 			Port:     os.Getenv("DB_PORT"),
 		},
+		Env:     os.Getenv("ENV"),
+		UseMock: useMock,
 	}
 }

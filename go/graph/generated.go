@@ -14,8 +14,8 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
+	"github.com/Kento-Ishizaki/go-next-template/entity"
 	"github.com/Kento-Ishizaki/go-next-template/graph/model"
-	"github.com/Kento-Ishizaki/go-next-template/models"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
 )
@@ -81,16 +81,16 @@ type MutationResolver interface {
 	CreateUser(ctx context.Context, input model.NewUser) (string, error)
 }
 type QueryResolver interface {
-	Todos(ctx context.Context) ([]*models.Todo, error)
-	Todo(ctx context.Context, id string) (*models.Todo, error)
-	Users(ctx context.Context) ([]*models.User, error)
-	User(ctx context.Context, id string) (*models.User, error)
+	Todos(ctx context.Context) ([]*entity.Todo, error)
+	Todo(ctx context.Context, id string) (*entity.Todo, error)
+	Users(ctx context.Context) ([]*entity.User, error)
+	User(ctx context.Context, id string) (*entity.User, error)
 }
 type TodoResolver interface {
-	User(ctx context.Context, obj *models.Todo) (*models.User, error)
+	User(ctx context.Context, obj *entity.Todo) (*entity.User, error)
 }
 type UserResolver interface {
-	Todos(ctx context.Context, obj *models.User) ([]*models.Todo, error)
+	Todos(ctx context.Context, obj *entity.User) ([]*entity.Todo, error)
 }
 
 type executableSchema struct {
@@ -598,9 +598,9 @@ func (ec *executionContext) _Query_todos(ctx context.Context, field graphql.Coll
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*models.Todo)
+	res := resTmp.([]*entity.Todo)
 	fc.Result = res
-	return ec.marshalNTodo2ᚕᚖgithubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋmodelsᚐTodoᚄ(ctx, field.Selections, res)
+	return ec.marshalNTodo2ᚕᚖgithubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋentityᚐTodoᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_todos(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -652,9 +652,9 @@ func (ec *executionContext) _Query_todo(ctx context.Context, field graphql.Colle
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*models.Todo)
+	res := resTmp.(*entity.Todo)
 	fc.Result = res
-	return ec.marshalNTodo2ᚖgithubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋmodelsᚐTodo(ctx, field.Selections, res)
+	return ec.marshalNTodo2ᚖgithubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋentityᚐTodo(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_todo(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -717,9 +717,9 @@ func (ec *executionContext) _Query_users(ctx context.Context, field graphql.Coll
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*models.User)
+	res := resTmp.([]*entity.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚕᚖgithubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋmodelsᚐUserᚄ(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚕᚖgithubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋentityᚐUserᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_users(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -769,9 +769,9 @@ func (ec *executionContext) _Query_user(ctx context.Context, field graphql.Colle
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*models.User)
+	res := resTmp.(*entity.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgithubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋmodelsᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋentityᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_user(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -935,7 +935,7 @@ func (ec *executionContext) fieldContext_Query___schema(ctx context.Context, fie
 	return fc, nil
 }
 
-func (ec *executionContext) _Todo_id(ctx context.Context, field graphql.CollectedField, obj *models.Todo) (ret graphql.Marshaler) {
+func (ec *executionContext) _Todo_id(ctx context.Context, field graphql.CollectedField, obj *entity.Todo) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Todo_id(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -979,7 +979,7 @@ func (ec *executionContext) fieldContext_Todo_id(ctx context.Context, field grap
 	return fc, nil
 }
 
-func (ec *executionContext) _Todo_text(ctx context.Context, field graphql.CollectedField, obj *models.Todo) (ret graphql.Marshaler) {
+func (ec *executionContext) _Todo_text(ctx context.Context, field graphql.CollectedField, obj *entity.Todo) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Todo_text(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1023,7 +1023,7 @@ func (ec *executionContext) fieldContext_Todo_text(ctx context.Context, field gr
 	return fc, nil
 }
 
-func (ec *executionContext) _Todo_done(ctx context.Context, field graphql.CollectedField, obj *models.Todo) (ret graphql.Marshaler) {
+func (ec *executionContext) _Todo_done(ctx context.Context, field graphql.CollectedField, obj *entity.Todo) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Todo_done(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1067,7 +1067,7 @@ func (ec *executionContext) fieldContext_Todo_done(ctx context.Context, field gr
 	return fc, nil
 }
 
-func (ec *executionContext) _Todo_user(ctx context.Context, field graphql.CollectedField, obj *models.Todo) (ret graphql.Marshaler) {
+func (ec *executionContext) _Todo_user(ctx context.Context, field graphql.CollectedField, obj *entity.Todo) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Todo_user(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1093,9 +1093,9 @@ func (ec *executionContext) _Todo_user(ctx context.Context, field graphql.Collec
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*models.User)
+	res := resTmp.(*entity.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgithubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋmodelsᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋentityᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Todo_user(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1119,7 +1119,7 @@ func (ec *executionContext) fieldContext_Todo_user(ctx context.Context, field gr
 	return fc, nil
 }
 
-func (ec *executionContext) _User_id(ctx context.Context, field graphql.CollectedField, obj *models.User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_id(ctx context.Context, field graphql.CollectedField, obj *entity.User) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_User_id(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1163,7 +1163,7 @@ func (ec *executionContext) fieldContext_User_id(ctx context.Context, field grap
 	return fc, nil
 }
 
-func (ec *executionContext) _User_name(ctx context.Context, field graphql.CollectedField, obj *models.User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_name(ctx context.Context, field graphql.CollectedField, obj *entity.User) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_User_name(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1207,7 +1207,7 @@ func (ec *executionContext) fieldContext_User_name(ctx context.Context, field gr
 	return fc, nil
 }
 
-func (ec *executionContext) _User_todos(ctx context.Context, field graphql.CollectedField, obj *models.User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_todos(ctx context.Context, field graphql.CollectedField, obj *entity.User) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_User_todos(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1233,9 +1233,9 @@ func (ec *executionContext) _User_todos(ctx context.Context, field graphql.Colle
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*models.Todo)
+	res := resTmp.([]*entity.Todo)
 	fc.Result = res
-	return ec.marshalNTodo2ᚕᚖgithubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋmodelsᚐTodoᚄ(ctx, field.Selections, res)
+	return ec.marshalNTodo2ᚕᚖgithubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋentityᚐTodoᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_User_todos(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3305,7 +3305,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 
 var todoImplementors = []string{"Todo"}
 
-func (ec *executionContext) _Todo(ctx context.Context, sel ast.SelectionSet, obj *models.Todo) graphql.Marshaler {
+func (ec *executionContext) _Todo(ctx context.Context, sel ast.SelectionSet, obj *entity.Todo) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, todoImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -3390,7 +3390,7 @@ func (ec *executionContext) _Todo(ctx context.Context, sel ast.SelectionSet, obj
 
 var userImplementors = []string{"User"}
 
-func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj *models.User) graphql.Marshaler {
+func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj *entity.User) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, userImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -3864,11 +3864,11 @@ func (ec *executionContext) marshalNString2string(ctx context.Context, sel ast.S
 	return res
 }
 
-func (ec *executionContext) marshalNTodo2githubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋmodelsᚐTodo(ctx context.Context, sel ast.SelectionSet, v models.Todo) graphql.Marshaler {
+func (ec *executionContext) marshalNTodo2githubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋentityᚐTodo(ctx context.Context, sel ast.SelectionSet, v entity.Todo) graphql.Marshaler {
 	return ec._Todo(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNTodo2ᚕᚖgithubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋmodelsᚐTodoᚄ(ctx context.Context, sel ast.SelectionSet, v []*models.Todo) graphql.Marshaler {
+func (ec *executionContext) marshalNTodo2ᚕᚖgithubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋentityᚐTodoᚄ(ctx context.Context, sel ast.SelectionSet, v []*entity.Todo) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -3892,7 +3892,7 @@ func (ec *executionContext) marshalNTodo2ᚕᚖgithubᚗcomᚋKentoᚑIshizaki�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNTodo2ᚖgithubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋmodelsᚐTodo(ctx, sel, v[i])
+			ret[i] = ec.marshalNTodo2ᚖgithubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋentityᚐTodo(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -3912,7 +3912,7 @@ func (ec *executionContext) marshalNTodo2ᚕᚖgithubᚗcomᚋKentoᚑIshizaki�
 	return ret
 }
 
-func (ec *executionContext) marshalNTodo2ᚖgithubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋmodelsᚐTodo(ctx context.Context, sel ast.SelectionSet, v *models.Todo) graphql.Marshaler {
+func (ec *executionContext) marshalNTodo2ᚖgithubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋentityᚐTodo(ctx context.Context, sel ast.SelectionSet, v *entity.Todo) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -3922,11 +3922,11 @@ func (ec *executionContext) marshalNTodo2ᚖgithubᚗcomᚋKentoᚑIshizakiᚋgo
 	return ec._Todo(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNUser2githubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋmodelsᚐUser(ctx context.Context, sel ast.SelectionSet, v models.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2githubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋentityᚐUser(ctx context.Context, sel ast.SelectionSet, v entity.User) graphql.Marshaler {
 	return ec._User(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋmodelsᚐUserᚄ(ctx context.Context, sel ast.SelectionSet, v []*models.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋentityᚐUserᚄ(ctx context.Context, sel ast.SelectionSet, v []*entity.User) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -3950,7 +3950,7 @@ func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋKentoᚑIshizaki�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNUser2ᚖgithubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋmodelsᚐUser(ctx, sel, v[i])
+			ret[i] = ec.marshalNUser2ᚖgithubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋentityᚐUser(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -3970,7 +3970,7 @@ func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋKentoᚑIshizaki�
 	return ret
 }
 
-func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋmodelsᚐUser(ctx context.Context, sel ast.SelectionSet, v *models.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋKentoᚑIshizakiᚋgoᚑnextᚑtemplateᚋentityᚐUser(ctx context.Context, sel ast.SelectionSet, v *entity.User) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")

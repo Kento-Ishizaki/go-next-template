@@ -8,6 +8,7 @@ import (
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/Kento-Ishizaki/go-next-template/core"
 	"github.com/Kento-Ishizaki/go-next-template/graph"
+	"github.com/Kento-Ishizaki/go-next-template/repository"
 	"github.com/joho/godotenv"
 )
 
@@ -22,7 +23,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{DB: db}}))
+	repo := repository.NewRepositoryFactory(cfg, db)
+	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{Repo: repo}}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)
