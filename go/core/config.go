@@ -4,7 +4,7 @@ import (
 	"os"
 )
 
-const useMock = true
+const useMock = false
 
 type Config struct {
 	Port    string
